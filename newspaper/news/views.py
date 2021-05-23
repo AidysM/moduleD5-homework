@@ -1,5 +1,5 @@
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin
     # импортируем класс, который говорит нам о том, что
     # в этом представлении мы будем выводить список объектов из БД
 from .models import Post
@@ -52,13 +52,15 @@ class Search(ListView):
         return context
 
 
-class PostCreateView(CreateView):
+class PostCreateView(PermissionRequiredMixin, CreateView):
+    permission_required = ('news.add_post',)
     template_name = 'post_create.html'
     form_class = PostForm
     success_url = '/news/'
 
 
-class PostUpdateView(UpdateView):
+class PostUpdateView(PermissionRequiredMixin, UpdateView):
+    permission_required = ('news.change_post',)
     template_name = 'post_create.html'
     form_class = PostForm
     success_url = '/news/'
