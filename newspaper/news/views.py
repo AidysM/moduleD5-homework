@@ -1,4 +1,5 @@
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
     # импортируем класс, который говорит нам о том, что
     # в этом представлении мы будем выводить список объектов из БД
 from .models import Post
@@ -72,4 +73,7 @@ class PostDeleteView(DeleteView):
     template_name = 'post_delete.html'
     queryset = Post.objects.all()
     success_url = '/news/'
+
+
+
 
